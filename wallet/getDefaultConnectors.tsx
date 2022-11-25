@@ -1,5 +1,5 @@
 import { WalletChain } from './WalletChainContext';
-import { ConnectorList } from './types';
+import { ConnectorList } from '@soroban-react/types';
 import { freighter } from './connectors';
 
 export const getDefaultConnectors = (

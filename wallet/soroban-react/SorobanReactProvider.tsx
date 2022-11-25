@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import * as SorobanClient from 'soroban-client';
 import { SorobanContext, SorobanContextType, defaultSorobanContext } from '.';
-import { ConnectorList } from "../types";
+import { ConnectorList } from "@soroban-react/types";
 import { WalletChain, } from '../WalletChainContext';
  
 /**
