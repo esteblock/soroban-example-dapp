@@ -1,12 +1,14 @@
 import React from 'react'
 import { DropdownSvg } from '../../../assets/icons'
 import { useAccount, useIsMounted, useNetwork } from '../../../wallet'
-import { ConnectButton } from '../../atoms'
+import { useSorobanReact } from '@soroban-react/core'
+import { ConnectButton } from '@soroban-react/connect-button'
 import styles from './style.module.css'
 import Image from 'next/image'
 
 // TODO: Eliminate flash of unconnected content on loading
 export function WalletData() {
+  const sorobanContext = useSorobanReact()
   const mounted = useIsMounted()
 
   const { data: account } = useAccount()
@@ -38,7 +40,7 @@ export function WalletData() {
           <div className={styles.card}>{account.displayName}</div>
         </div>
       ) : (
-        <ConnectButton label="Connect Wallet" />
+        <ConnectButton label="Connect Wallet" sorobanContext={sorobanContext} />
       )}
     </>
   )

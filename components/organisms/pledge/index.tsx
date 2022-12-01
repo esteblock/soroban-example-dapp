@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from 'react'
-import { Card, ConnectButton, Loading, ProgressBar } from '../../atoms'
+import { Card, Loading, ProgressBar } from '../../atoms'
+import ConnectButton from '@soroban-react/connect-button'
+import { useSorobanReact } from '@soroban-react/core'
 import styles from './style.module.css'
 import { Spacer } from '../../atoms/spacer'
 import { Utils } from '../../../shared/utils'
@@ -120,7 +122,10 @@ const Pledge: FunctionComponent = () => {
                 symbol={tokenSymbol}
               />
             ) : (
-              <ConnectButton label="Connect wallet to pledge" isHigher={true} />
+              <ConnectButton
+                label="Connect wallet to pledge"
+                isHigher={true}
+                sorobanContext={useSorobanReact()}/>
             ))}
           {account && (
             <Deposits
