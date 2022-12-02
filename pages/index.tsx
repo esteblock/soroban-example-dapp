@@ -3,7 +3,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { Campaign, Pledge } from '../components/organisms'
-import { WalletData } from '../components/molecules'
+import { WalletData} from '@soroban-react/wallet-data'
+import { useSorobanReact } from '@soroban-react/core'
 
 const Home: NextPage = () => {
   return (
@@ -22,7 +23,7 @@ const Home: NextPage = () => {
 
       <header className={styles.header}>
         <h3>Starfund</h3>
-        <WalletData />
+        <WalletData sorobanContext={useSorobanReact()}/>
       </header>
       <main className={styles.main}>
         <div className={styles.content}>
