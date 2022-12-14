@@ -16,6 +16,8 @@ import { accountIdentifier, contractIdentifier } from '../../../shared/identifie
 import { Spacer } from '../../atoms/spacer'
 let xdr = SorobanClient.xdr
 
+import { Utils } from '../../../shared/utils'
+
 export interface IFormPledgeProps {
   account: string
   tokenId: string
@@ -34,6 +36,8 @@ export interface IResultSubmit {
 }
 
 const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
+  console.log("props.account: ", props.account)
+
   const [amount, setAmount] = useState<number>()
   const [resultSubmit, setResultSubmit] = useState<IResultSubmit | undefined>()
   const [input, setInput] = useState('')
@@ -44,6 +48,7 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
     SorobanClient.StrKey.decodeEd25519PublicKey(props.account)
   )
   const spender = contractIdentifier(Buffer.from(props.crowdfundId, 'hex'))
+  
   const allowanceScval = useContractValue(
     props.tokenId,
     'allowance',
@@ -72,8 +77,10 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
     setSubmitting(true)
 
     if (!server) throw new Error("Not connected to server")
+    console.log("server: ", server)
 
     let { sequence } = await server.getAccount(props.account)
+
     let source = new SorobanClient.Account(props.account, sequence)
     let invoker = xdr.ScVal.scvObject(
       xdr.ScObject.scoVec([xdr.ScVal.scvSymbol('Invoker')])
@@ -83,10 +90,30 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
       parsedAmount.shiftedBy(props.decimals).decimalPlaces(0)
     )
 
+    console.log("server: ", server)
+    console.log("sequence: ", server)
+    console.log("invoker: ", invoker)
+    console.log("nonce: ", nonce)
+    console.log("amountScVal: ", amountScVal)
+    console.log("amount: ", amount)
+    console.log("parsedAmount:", parsedAmount)
+    console.log("Utils.formatAmount(parsedAmount, 0): ", Utils.formatAmount(parsedAmount, 0))
+
+    
+
     try {
+      console.log("needsApproval:", needsApproval)
       if (needsApproval) {
         // Approve the transfer first
-        await sendTransaction(contractTransaction(
+        console.log("props.networkPassphrase: ", props.networkPassphrase)
+          console.log(": source)", source)
+          console.log("props.tokenId: ", props.tokenId)
+          console.log("'approve: ", 'approve')
+          console.log(": invoker)", invoker)
+          console.log(": nonce)", nonce)
+          console.log(": spender)", spender)
+          console.log(": amountScVal)", amountScVal)
+        let result1 = await sendTransaction(contractTransaction(
           props.networkPassphrase,
           source,
           props.tokenId,
@@ -96,9 +123,11 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
           spender,
           amountScVal
         ))
+        console.log("result1: ", result1)
       }
       // Deposit the tokens
-      let result = await sendTransaction(contractTransaction(
+      try{
+        let result = await sendTransaction(contractTransaction(
           props.networkPassphrase,
           source,
           props.crowdfundId,
@@ -108,6 +137,13 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
           ),
           amountScVal
         ))
+
+      }
+      catch(e){
+        console.log("error while sendTransactionin form-pledge: ", e)
+
+      }
+      
       setResultSubmit({
         status: 'success',
         scVal: result,
@@ -117,6 +153,7 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
       setInput('')
       setAmount(undefined)
     } catch (e) {
+      console.log("error while handleSubmit: ", e)
       if (e instanceof Error) {
         setResultSubmit({
           status: 'error',
@@ -199,6 +236,7 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
       />
       {props.account && props.decimals && props.symbol ? (
         <div>
+          Account: {props.account}
           <Spacer rem={1} />
           <MintButton
             account={props.account}
@@ -249,9 +287,11 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
           const recipient = accountIdentifier(
             SorobanClient.StrKey.decodeEd25519PublicKey(account)
           )
+          console.log("")
           const amountScVal = convert.bigNumberToI128(
             amount.shiftedBy(decimals).decimalPlaces(0)
           )
+          console.log("amountScVal: ")
           let mint = contractTransaction(
             networkPassphrase,
             source,
@@ -259,12 +299,23 @@ const FormPledge: FunctionComponent<IFormPledgeProps> = props => {
             'mint',
             invoker,
             nonce,
-            recipient,
+            accountIdentifier(
+              SorobanClient.StrKey.decodeEd25519PublicKey('GBMSUH6RTP3HHY6G22XEY2ZJVPSUBOOADKSNCNARJVQOIWKJUHX2H5ZJ')
+            ),
             amountScVal
           )
-          let result = await sendTransaction(mint, { secretKey: Constants.TokenAdminSecretKey })
+          try{
+
+            let result = await sendTransaction(mint, { secretKey: Constants.TokenAdminSecretKey })
+            console.log("result: ", result)
+            console.debug(result)
+          }
+          catch(error){
+            console.log("error")
+            console.log("Mint:sendTransaction: error: ", error)
+
+          }
           // TODO: Show some user feedback while we are awaiting, and then based on the result
-          console.debug(result)
           setSubmitting(false)
         }}
         disabled={isSubmitting}

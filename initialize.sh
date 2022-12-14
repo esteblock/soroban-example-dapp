@@ -48,6 +48,7 @@ TOKEN_ID="$(
 )"
 mkdir -p .soroban
 echo "$TOKEN_ID" > .soroban/token_id
+echo "Token contract was deployed with TOKEN_ID: $TOKEN_ID"
 
 echo Build the crowdfund contract
 make build
@@ -59,7 +60,7 @@ CROWDFUND_ID="$(
 )"
 echo "$CROWDFUND_ID" > .soroban/crowdfund_id
 
-echo "Contract deployed succesfully with ID: $CROWDFUND_ID"
+echo "Crowdunfund contract was deployed with ID: $CROWDFUND_ID"
 
 echo Initialize the crowdfund contract
 deadline="$(($(date +"%s") + 86400))"

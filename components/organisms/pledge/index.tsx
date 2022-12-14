@@ -27,6 +27,7 @@ const Pledge: FunctionComponent = () => {
 
   // Call the contract rpcs to fetch values
   const useLoadToken = (): any => {
+    console.log("Constants.CrowdfundId: ", Constants.CrowdfundId)
     return {
       balance: useContractValue(
         Constants.TokenId,
