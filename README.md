@@ -127,3 +127,9 @@ transactions.
 Data from contracts is fetched using the `useContractValue` hook in
 `./wallet/hooks/useContractValue.tsx`. Transactions are submitted to the network
 using the `useSendTransactions` hook in `./wallet/hooks/useSendTransaction.tsx`.
+
+## Testing in standalone with soroban-cli
+You can test that contracts are working by using our tools in `contracts/soroban-cli-test`
+```
+docker exec soroban-preview bash contracts/soroban-cli-test/test.sh 
+```
