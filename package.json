@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.0.2",
-    "@soroban-react/chains": "4.3.1",
-    "@soroban-react/contracts": "4.3.1",
-    "@soroban-react/core": "4.3.1",
+    "@soroban-react/chains": "4.5.1-alpha.0",
+    "@soroban-react/contracts": "4.5.1-alpha.0",
+    "@soroban-react/core": "4.5.1-alpha.0",
     "@soroban-react/freighter": "4.0.0",
     "@soroban-react/types": "4.0.0",
     "@stellar/freighter-api": "^1.3.1",
@@ -25,7 +25,7 @@
     "next": "12.1.5",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "soroban-client": "^0.5.0"
+    "soroban-client": "0.7.0"
   },
   "devDependencies": {
     "@types/humanize-duration": "^3.27.1",
