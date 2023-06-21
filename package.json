@@ -26,7 +26,8 @@
     "next": "^13.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "soroban-client": "0.8.0"
+    "soroban-client": "0.8.0",
+    "@creit-tech/xbull-wallet-connect": "github:Creit-Tech/xBull-Wallet-Connect#0.1.0"
   },
   "devDependencies": {
     "@types/humanize-duration": "^3.27.1",
