@@ -48,7 +48,7 @@ docker run -dti \
   -p 8001:8000 \
   --ipc=host \
   --network soroban-network \
-  soroban-preview:9
+  esteblock/soroban-preview:9
 
 # Run the stellar quickstart image
 
