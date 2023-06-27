@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSorobanReact } from '@soroban-react/core'
+import { useSorobanReact } from '../../core'
 import styles from './style.module.css'
 
 export interface ConnectButtonProps {

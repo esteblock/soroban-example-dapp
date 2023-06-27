@@ -9,7 +9,7 @@ import {
   ContractValueType,
   useContractValue,
 } from '@soroban-react/contracts'
-import { useSorobanReact } from '@soroban-react/core'
+import { useSorobanReact } from '../../core'
 
 export interface IDepositsProps {
   address: string

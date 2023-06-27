@@ -13,14 +13,14 @@ import * as SorobanClient from 'soroban-client'
 import { Deposits, FormPledge } from '../../molecules'
 import * as convert from '../../../convert'
 import { Constants } from '../../../shared/constants'
-import { useSorobanReact } from '@soroban-react/core'
-import { useSorobanEvents, EventSubscription } from '@soroban-react/events'
+import { useSorobanReact } from '../../core'
+//import { useSorobanEvents, EventSubscription } from '@soroban-react/events'
 let xdr = SorobanClient.xdr
 
 const Pledge: FunctionComponent = () => {
   const { data: account } = useAccount()
   const sorobanContext = useSorobanReact()
-  const sorobanEventsContext = useSorobanEvents()
+  //const sorobanEventsContext = useSorobanEvents()
 
   const { activeChain } = sorobanContext
 
@@ -109,14 +109,14 @@ const Pledge: FunctionComponent = () => {
     )
   }
 
-  const crowdfundPledgedEventSubscription = useRef({
-      contractId: Constants.CrowdfundId, 
-      topics: ['pledged_amount_changed'], 
-      cb: (event: SorobanClient.SorobanRpc.EventResponse): void => {
-        let eventTokenBalance = xdr.ScVal.fromXDR(event.value.xdr, 'base64')
-        setTokenBalance(convert.scvalToBigNumber(eventTokenBalance))
-      }, 
-      id: Math.random()} as EventSubscription);
+  // const crowdfundPledgedEventSubscription = useRef({
+  //     contractId: Constants.CrowdfundId, 
+  //     topics: ['pledged_amount_changed'], 
+  //     cb: (event: SorobanClient.SorobanRpc.EventResponse): void => {
+  //       let eventTokenBalance = xdr.ScVal.fromXDR(event.value.xdr, 'base64')
+  //       setTokenBalance(convert.scvalToBigNumber(eventTokenBalance))
+  //     }, 
+  //     id: Math.random()} as EventSubscription);
 
   const crowdfundTargetReachedSubscription = useRef({
       contractId: Constants.CrowdfundId, 
@@ -126,15 +126,15 @@ const Pledge: FunctionComponent = () => {
       }, 
       id: Math.random()} as EventSubscription);
   
-  React.useEffect(() => {
-    const pledgedSubId = sorobanEventsContext.subscribe(crowdfundPledgedEventSubscription.current)
-    const reachedSubId = sorobanEventsContext.subscribe(crowdfundTargetReachedSubscription.current)
+  // React.useEffect(() => {
+  //   const pledgedSubId = sorobanEventsContext.subscribe(crowdfundPledgedEventSubscription.current)
+  //   const reachedSubId = sorobanEventsContext.subscribe(crowdfundTargetReachedSubscription.current)
 
-    return () => {
-      sorobanEventsContext.unsubscribe(pledgedSubId);
-      sorobanEventsContext.unsubscribe(reachedSubId);
-    }
-  }, [sorobanEventsContext]);
+  //   return () => {
+  //     sorobanEventsContext.unsubscribe(pledgedSubId);
+  //     sorobanEventsContext.unsubscribe(reachedSubId);
+  //   }
+  // }, [sorobanEventsContext]);
 
   return (
     <Card>

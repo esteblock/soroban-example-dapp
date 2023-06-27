@@ -1,6 +1,6 @@
 import React from 'react'
-import {SorobanReactProvider} from '@soroban-react/core';
-import {SorobanEventsProvider} from '@soroban-react/events';
+import {SorobanReactProvider} from './core';
+//import {SorobanEventsProvider} from '@soroban-react/events';
 import {futurenet, sandbox, standalone} from '@soroban-react/chains';
 import {freighter} from '@soroban-react/freighter';
 import {ChainMetadata, Connector} from "@soroban-react/types";
@@ -13,10 +13,11 @@ const connectors: Connector[] = [freighter()];
       <SorobanReactProvider
         chains={chains}
         appName={"Example Stellar App"}
-        connectors={connectors}>
-          <SorobanEventsProvider>
+        connectors={connectors}
+        autoconnect={true}>
+          {/* <SorobanEventsProvider> */}
           {children}
-        </SorobanEventsProvider>
+        {/* </SorobanEventsProvider> */}
       </SorobanReactProvider>
     )
   }

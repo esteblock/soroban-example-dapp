@@ -1,4 +1,4 @@
-import { useSorobanReact } from "@soroban-react/core";
+import { useSorobanReact } from "../components/core";
 export function useAccount() {
   const {address} = useSorobanReact()
 
