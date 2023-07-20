@@ -19,7 +19,7 @@ esac
 
 # this is set to the quickstart `soroban-dev` image annointed as the release 
 # for a given Soroban Release, it is captured on Soroban Releases - https://soroban.stellar.org/docs/reference/releases 
-QUICKSTART_SOROBAN_DOCKER_SHA=stellar/quickstart:soroban-dev@sha256:ed57f7a7683e3568ae401f5c6e93341a9f77d8ad41191bf752944d7898981e0c
+QUICKSTART_SOROBAN_DOCKER_SHA=stellar/quickstart:soroban-dev@sha256:1fa97a4e0d30bfe56bfa3d08cb39aca8f8fc095e137ba3db4601570bca2df0f4
 
 shift
 
